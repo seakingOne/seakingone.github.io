@@ -1,9 +1,9 @@
 # links section data
-- last_name: Name 1
+- last_name: github
   first_name:
-  desc: CEO
-  website: https://www.google.com
-  email: ceo@google.com
+  desc: github
+  website: github.com/seakingOne
+  email: dh_top1994@yeah.net
 
 - last_name: Donate
   first_name: Jalpc
