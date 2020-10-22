@@ -13,7 +13,6 @@
     detail: Specialist
     i18n: Specialist
   icon: fa-plus-square
-  present: true
 - name:
     detail: Spring tour
     i18n: Spring tour
@@ -24,8 +23,8 @@
     detail: June. 2018
     i18n: June. 2018
   job:
-    detail: intern
-    i18n: intern
+    detail: Java Search
+    i18n: Java Search
   icon: fa-plus-square
   present: true
 - name:
@@ -38,10 +37,9 @@
     detail: July. 2016
     i18n: July. 2016
   job:
-    detail: intern
-    i18n: intern
+    detail: Java
+    i18n: Java
   icon: fa-plus-square
-  present: true  
 - name:
     detail: NetEasy
     i18n: NetEasy
