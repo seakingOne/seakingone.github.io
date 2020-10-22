@@ -1,30 +1,58 @@
 # careers section data
 # if you don't have language feature(language.yml is empty), ignore "i18n" items
 - name:
-    detail: Company A
-    i18n: company_a
+    detail: Micro Focus
+    i18n: Micro Focus
   desc:
-    detail: I worked at Company A ...
-    i18n: company_a_desc
+    detail: Specialist of Java development engineer
+    i18n: Saas, company
   date:
-    detail: Apr. 2016
-    i18n: company_a_date
+    detail: March. 2020
+    i18n: March. 2020
   job:
-    detail: CTO
-    i18n: company_a_job
+    detail: Specialist
+    i18n: Specialist
   icon: fa-plus-square
   present: true
-
 - name:
-    detail: Company B
-    i18n: company_b
+    detail: Spring tour
+    i18n: Spring tour
   desc:
-    detail: I worked at Company B ...
-    i18n: company_b_desc
+    detail: I worked as an Java at Spring tour, order、product、component...
+    i18n: Internet, tour
   date:
-    detail: Jun. 2015
-    i18n: company_b_date
+    detail: June. 2018
+    i18n: June. 2018
   job:
-    detail: Full Stack Developer
-    i18n: company_b_job
+    detail: intern
+    i18n: intern
   icon: fa-plus-square
+  present: true
+- name:
+    detail: AsiaInfo
+    i18n: AsiaInfo
+  desc:
+    detail: I worked as an Java at AsiaInfo, CRM、4G ...
+    i18n: Internet
+  date:
+    detail: July. 2016
+    i18n: July. 2016
+  job:
+    detail: intern
+    i18n: intern
+  icon: fa-plus-square
+  present: true  
+- name:
+    detail: NetEasy
+    i18n: NetEasy
+  desc:
+    detail: I worked as an intern at netease, serving tea to the boss ...
+    i18n: Internet, games
+  date:
+    detail: November. 2015
+    i18n: November. 2015
+  job:
+    detail: intern
+    i18n: intern
+  icon: fa-plus-square
+  present: true
