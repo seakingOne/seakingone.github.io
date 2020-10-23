@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "RabbitMQ messaging reliability delivery solution"
-date:   2020-01-03
+date:   2019-01-03
 desc: "RabbitMQ messaging reliability delivery solution"
 keywords: "RabbitMQ,reliability"
 categories: [HTML]
