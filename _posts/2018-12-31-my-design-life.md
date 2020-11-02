@@ -11,4 +11,4 @@ icon: icon-html
 
 this is my design pdf file
 
-<img src="{{ site.img_path }}/product/product.pdf" width="75%">
+[Intro.pdf] https://dhboke.top/static/assets/img/blog/product/product.pdf
