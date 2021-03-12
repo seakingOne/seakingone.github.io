@@ -71,5 +71,8 @@ Extract the original data format:
     -ac: audiu channel 音频声道数为2
     -f：音频的数据存储格式s16le: s:有符号16位lettle end
     
-    ffmpeg.exe -i 1.mp4 -an -c:v rawvideo -pix_fmt yuv420p out.yuv    
+    ffmpeg.exe -i 1.mp4 -an -c:v rawvideo -pix_fmt yuv420p out.yuv   
+    -an： 不提取音频
+    -c:v： 对视频进行编码，使用rawvideo（原始视频）格式进行编码
+    -pix_fmt yuv420p： 输出的YUV像素格式 
  
