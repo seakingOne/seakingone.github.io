@@ -53,3 +53,20 @@ To capture audio:
 of course, we can record audio and screen both
 
     ffmpeg.exe -f gdigrab -i desktop -f dshow -i audio="Microphone (Realtek(R) Audio)" -r 30 -s 1280*740 1.mp4
+    
+from videos extract video and audio:
+
+    ffmpeg -i 1.mp4 -vcodec copy -an 1-1.mp4
+    
+    ffmpeg -i 1.mp4 -acodec copy -vn 1-1.mp3
+  
+Multimedia format conversion:
+    
+    ffmpeg -i 1.mp4 -vcodec copy -acodec copy 1.flv
+    
+Extract the original data format:
+
+    ffplay.exe -ar 44100 -ac 2 out.pcm
+    
+    ffmpeg.exe -i 1.mp4 -an -c:v rawvideo -pix_fmt yuv420p out.yuv    
+ 
