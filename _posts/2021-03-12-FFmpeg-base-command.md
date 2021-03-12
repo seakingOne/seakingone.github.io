@@ -31,6 +31,21 @@ Capture desktop screen (silent):
     
     -f: the input source
     -i desktop: Screen capture video
-    -i: xxx : To capture audio
 
+To capture audio:
+    
+    windows: ffmpeg -list_devices true -f dshow -i dummy (List the device name)
+    
+             [dshow @ 0000025c3d3ddc00] DirectShow video devices (some may be both video and audio devices)
+             
+             [dshow @ 0000025c3d3ddc00]  "Integrated Webcam"
+                
+             [dshow @ 0000025c3d3ddc00]     Alternative name "@device_pnp_\\?\usb#vid_0c45&pid_6723&mi_00#6&12e96a9&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
+                
+             [dshow @ 0000025c3d3ddc00] DirectShow audio devices
+                
+             [dshow @ 0000025c3d3ddc00]  "Microphone (Realtek(R) Audio)"
+                
+             [dshow @ 0000025c3d3ddc00]     Alternative name "@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{944A0A5A-4ED9-4B5F-89AF-4CB5262162A9}" 
 
+             start record:  ffmpeg.exe -f dshow -i audio="Microphone (Realtek(R) Audio)" 1.mp3
