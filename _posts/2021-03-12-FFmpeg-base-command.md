@@ -9,7 +9,7 @@ tags: [FFmpeg]
 icon: icon-html
 ---
 
-The command here is based on Windows, and Mac operations are similar.
+The command here is based on Windows(the personal computer), and Mac operations are similar.
 
 Get devices
 
