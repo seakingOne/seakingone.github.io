@@ -66,7 +66,10 @@ Multimedia format conversion:
     
 Extract the original data format:
 
-    ffplay.exe -ar 44100 -ac 2 out.pcm
+    ffmpeg.exe -i out.mp4 -vn -ar 44100 -ac 2 -f s16le out.pcm
+    -ar: audiu rate音频采样率
+    -ac: audiu channel 音频声道数为2
+    -f：音频的数据存储格式s16le: s:有符号16位lettle end
     
     ffmpeg.exe -i 1.mp4 -an -c:v rawvideo -pix_fmt yuv420p out.yuv    
  
