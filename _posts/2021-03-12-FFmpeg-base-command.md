@@ -92,3 +92,6 @@ Extract the original data format:
     -c:v： 对视频进行编码，使用rawvideo（原始视频）格式进行编码
     -pix_fmt yuv420p： 输出的YUV像素格式 
  
+
+
+[here you can see word doc](https://dhboke.top/static/assets/img/blog/ffmpeg/ffmpeg命令大全.docx)
