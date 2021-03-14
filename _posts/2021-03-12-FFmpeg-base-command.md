@@ -24,6 +24,10 @@ Get devices
                  E sdl,sdl2        SDL2 output device
                  
                  D  vfwcap          VfW video capture
+                 
+    in macOS:    E audiotoolbox    AudioToolbox output device
+                 D  avfoundation    AVFoundation input device
+                 D  lavfi           Libavfilter virtual input device        
 
 Capture desktop screen (silent):
     
@@ -31,6 +35,8 @@ Capture desktop screen (silent):
     
     -f: the input source
     -i desktop: Screen capture video
+   
+    macOS: ffmpeg -f avfoundation -i 1 -r 30 fileName.mp4/.yuv/or other
 
 To capture audio:
     
@@ -49,10 +55,20 @@ To capture audio:
              [dshow @ 0000025c3d3ddc00]     Alternative name "@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{944A0A5A-4ED9-4B5F-89AF-4CB5262162A9}" 
 
              start record:  ffmpeg.exe -f dshow -i audio="Microphone (Realtek(R) Audio)" 1.mp3
+             
+    macOS:   ffmpeg -f avfoundation -list_devices true -i ""
+    
+             [AVFoundation indev @ 0x7f8766400e80] AVFoundation video devices:
+             [AVFoundation indev @ 0x7f8766400e80] [0] FaceTime HD Camera
+             [AVFoundation indev @ 0x7f8766400e80] [1] Capture screen 0
+             [AVFoundation indev @ 0x7f8766400e80] AVFoundation audio devices:
+             [AVFoundation indev @ 0x7f8766400e80] [0] Built-in Microphone       
 
 of course, we can record audio and screen both
 
-    ffmpeg.exe -f gdigrab -i desktop -f dshow -i audio="Microphone (Realtek(R) Audio)" -r 30 -s 1280*740 1.mp4
+    windows: ffmpeg.exe -f gdigrab -i desktop -f dshow -i audio="Microphone (Realtek(R) Audio)" -r 30 -s 1280*740 1.mp4
+    
+    macOS: ffmpeg -f avfoundation -video_size 1280x720 -framerate 30 -i 1:0 -r 30 1.mp4
     
 from videos extract video and audio:
 
