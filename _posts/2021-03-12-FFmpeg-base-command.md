@@ -94,4 +94,4 @@ Extract the original data format:
  
 
 
-[here you can see word doc](https://dhboke.top/static/assets/img/blog/ffmpeg/ffmpeg命令大全.pdf)
+[here you can see word doc(中文版)](https://dhboke.top/static/assets/img/blog/ffmpeg/ffmpeg命令大全.pdf)
