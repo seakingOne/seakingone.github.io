@@ -4,7 +4,7 @@ title:  "Linux socket编程"
 date:   2021-04-19
 desc: "Linux socket"
 keywords: "linux socket 大小端"
-categories: [HTML]
+categories: [Linux]
 tags: [Linux]
 icon: icon-html
 ---

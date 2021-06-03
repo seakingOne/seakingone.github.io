@@ -4,7 +4,7 @@ title:  "my design life"
 date:   2018-12-31
 desc: "my design lif"
 keywords: "life, design"
-categories: [HTML]
+categories: [Article]
 tags: [dh, design, huanhuan]
 icon: icon-html
 ---

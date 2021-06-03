@@ -4,7 +4,7 @@ title:  "C++ common network libraries"
 date:   2021-03-04
 desc: "C++ socket"
 keywords: "C++ common network libraries"
-categories: [HTML]
+categories: [Article]
 tags: [C++]
 icon: icon-html
 ---

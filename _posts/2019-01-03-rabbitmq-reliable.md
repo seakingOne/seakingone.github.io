@@ -4,7 +4,7 @@ title:  "RabbitMQ messaging reliability delivery solution/RabbitMQ消息可靠�
 date:   2019-01-03
 desc: "RabbitMQ messaging reliability delivery solution/RabbitMQ消息可靠性投递解决方案"
 keywords: "RabbitMQ,reliability"
-categories: [HTML]
+categories: [Article]
 tags: [RabbitMQ]
 icon: icon-html
 ---

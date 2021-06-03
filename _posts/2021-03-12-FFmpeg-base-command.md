@@ -4,7 +4,7 @@ title:  "FFmpeg base command"
 date:   2021-03-12
 desc: "FFmpeg shell"
 keywords: "FFmpeg base command"
-categories: [HTML]
+categories: [Article]
 tags: [FFmpeg]
 icon: icon-html
 ---
