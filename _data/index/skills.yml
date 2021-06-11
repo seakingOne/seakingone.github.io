@@ -2,5 +2,5 @@
 
 label: Ability
 id : cs
-aspects: GitHub, Git, Spring, Dubbo, Netty, ELK, MQ, Python, Java, Shell, Docker
-percentage: 100, 80, 65, 80, 70, 90, 50, 80, 90, 60, 80
+aspects: GitHub, Git, Spring, Dubbo, Netty, ELK, MQ, Python, Java, Linux, Docker, C/C++, OpenGL/OpenCV, FFmpeg
+percentage: 100, 100, 80, 80, 70, 80, 60, 60, 90, 70, 70, 70, 70, 70
