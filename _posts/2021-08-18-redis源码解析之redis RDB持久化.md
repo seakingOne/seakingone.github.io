@@ -217,13 +217,13 @@ save命令会阻塞Redis服务器进程，知道RDB文件创建完成为止，�
     
     
 关于rdb的文件结构：<br/>
-<img src="{{ site.img_path }}/redis/rdb_struct.png" width="45%"> <br/>
+<img src="{{ site.img_path }}/redis/rdb_struct.png" width="65%"> <br/>
 Redis文件的最开头是REDIS部分，这个部分长度为5个字节，保存着"REDIS"五个字符，程序可以在载入文件的时候
 ，快速检查文件是否为rdb文件。从源码中我们也可以看出蛛丝马迹<br/>
-<img src="{{ site.img_path }}/redis/rdb_struct-1.png" width="45%"> <br/>
+<img src="{{ site.img_path }}/redis/rdb_struct-1.png" width="65%"> <br/>
 
     REDIS_RDB_VERSION 6
-    可以看出当前dh版本为0006
+    可以看出当前db版本为0006
     
 databases部分，一个rdb文件的databases部分可以保存任意多个非空数据库
     
