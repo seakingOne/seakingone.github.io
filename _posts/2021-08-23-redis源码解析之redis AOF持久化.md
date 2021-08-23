@@ -76,4 +76,83 @@ no,将aof_buf缓冲区的所有内容写到AOF文件中，但并不对AOF文件�
         server.aof_last_fsync = server.unixtime;
     }  
     
+AOF文件的载入与数据还原<br/>
+因为AOF文件里面包含了重建数据库状态所需的所有写命令，所以服务器只要读入并重新执行一遍AOF文件里面保存的写命令，源码在redis.c/initServer方法<br/>
+Redis读取AOF文件并还原数据库状态的详细步骤如下：<br/>
+<img src="{{ site.img_path }}/redis/aof_process.png" width="65%"> <br/>    
     
+    一般来说，会优先加载AOF文件：
+    /* Open the AOF file if needed. */
+        if (server.aof_state == REDIS_AOF_ON) {
+    #ifdef _WIN32
+            server.aof_fd = open(server.aof_filename,
+                                   O_WRONLY|O_APPEND|O_CREAT|_O_BINARY,_S_IREAD|_S_IWRITE);
+    #else
+            server.aof_fd = open(server.aof_filename,
+                                   O_WRONLY|O_APPEND|O_CREAT,0644);
+    #endif
+            if (server.aof_fd == -1) {
+                redisLog(REDIS_WARNING, "Can't open the append-only file: %s",
+                    strerror(errno));
+                exit(1);
+            }
+        }
+        
+    /* Function called at startup to load RDB or AOF file in memory. */
+    void loadDataFromDisk(void) {
+        PORT_LONGLONG start = ustime();
+        if (server.aof_state == REDIS_AOF_ON) {
+            //loadAppendOnlyFile为AOF加载持久化文件
+            if (loadAppendOnlyFile(server.aof_filename) == REDIS_OK)
+                redisLog(REDIS_NOTICE,"DB loaded from append only file: %.3f seconds",(float)(ustime()-start)/1000000);
+        } else {
+            if (rdbLoad(server.rdb_filename) == REDIS_OK) {
+                redisLog(REDIS_NOTICE,"DB loaded from disk: %.3f seconds",
+                    (float)(ustime()-start)/1000000);
+            } else if (errno != ENOENT) {
+                redisLog(REDIS_WARNING,"Fatal error loading the DB: %s. Exiting.",strerror(errno));
+                exit(1);
+            }
+        }
+    }  
+    
+    
+    int loadAppendOnlyFile(char *filename) {
+    
+        struct redisClient *fakeClient;
+        
+        .....
+        
+        //创建一个Redis伪客户端   
+        fakeClient = createFakeClient();
+    }      
+    
+    
+    /* In Redis commands are always executed in the context of a client, so in
+     * order to load the append only file we need to create a fake client. */
+    struct redisClient *createFakeClient(void) {
+        struct redisClient *c = zmalloc(sizeof(*c));
+    
+        selectDb(c,0);
+        c->fd = -1;   //创建伪客户端，所有文件句柄为-1
+        c->name = NULL;
+        c->querybuf = sdsempty();
+        c->querybuf_peak = 0;
+        c->argc = 0;
+        c->argv = NULL;
+        c->bufpos = 0;
+        c->flags = 0;
+        c->btype = REDIS_BLOCKED_NONE;
+        /* We set the fake client as a slave waiting for the synchronization
+         * so that Redis will not try to send replies to this client. */
+        c->replstate = REDIS_REPL_WAIT_BGSAVE_START;
+        c->reply = listCreate();
+        c->reply_bytes = 0;
+        c->obuf_soft_limit_reached_time = 0;
+        c->watched_keys = listCreate();
+        c->peerid = NULL;
+        listSetFreeMethod(c->reply,decrRefCountVoid);
+        listSetDupMethod(c->reply,dupClientReplyValue);
+        initClientMultiState(c);
+        return c;
+    }
