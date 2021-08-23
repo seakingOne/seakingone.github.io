@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "redis源码解析之redis AOF持久化.md"
+title:  "redis源码解析之redis AOF持久化"
 date:   2021-08-23
 desc: "redis 持久化 AOF"
 keywords: "redis 持久化 AOF"
