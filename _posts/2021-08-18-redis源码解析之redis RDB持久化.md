@@ -12,7 +12,7 @@ icon: icon-html
 对于rdb的文件的创建<br/>
 有2个命令可以用于生成RDB文件，一个是save，一个是bgsave
 
-save命令会阻塞Redis服务器进程，知道RDB文件创建完成为止，服务器期间不能处理任何的请求
+save命令会阻塞Redis服务器进程，知道RDB文件创建完成为止，服务器期间不能处理任何的请求，其二rdb的持久化存储不具备实时性
 
     源码如下：
     void saveCommand(redisClient *c) {

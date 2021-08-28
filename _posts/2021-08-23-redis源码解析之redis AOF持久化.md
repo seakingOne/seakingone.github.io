@@ -156,3 +156,49 @@ Redis读取AOF文件并还原数据库状态的详细步骤如下：<br/>
         initClientMultiState(c);
         return c;
     }
+    
+AOF重写，由于AOF持久化是通过保存被执行的写命令来记录数据状态的，所以AOF文件内容会越来越多，AOF重写命令是
+通过对同一个key的多次操作最终保存为一个记录<br/>
+
+    代码如下：
+    触发aof重写时机
+    /* Trigger an AOF rewrite if needed */
+     if (server.rdb_child_pid == -1 &&
+         server.aof_child_pid == -1 &&
+         server.aof_rewrite_perc &&
+         server.aof_current_size > server.aof_rewrite_min_size)
+     {
+        long long base = server.aof_rewrite_base_size ?
+                        server.aof_rewrite_base_size : 1;
+        long long growth = (server.aof_current_size*100/base) - 100;
+        if (growth >= server.aof_rewrite_perc) {
+            redisLog(REDIS_NOTICE,"Starting automatic rewriting of AOF on %lld%% growth",growth);
+            rewriteAppendOnlyFileBackground();
+        }
+     }
+     
+     具体执行逻辑，还是通过fork子进程来触发重写，具体的逻辑在aof.c/rewriteAppendOnlyFile方法中，
+     大概的流程为
+     创建新的AOF文件，然后遍历数据库，拿到所有的key，根据key得到的value判断当前的数据类型，不同的类型
+     执行不同的重写方法
+     
+但是这里有个问题，AOF重写的时候数据可能不是最新的，因为在子进程进行AOF重写期间，服务器进程可以继续处理命令请求<br/>
+为了解决这种数据不一致问题，Redis服务器设置了一个AOF重写缓冲区，
+
+    在redisServer中定义：
+    list *aof_rewrite_buf_blocks;   /* Hold changes during an AOF rewrite. */ 
+    sds aof_buf;      /* AOF buffer, written before entering the event loop */
+    
+说明在服务器执行期间，会做三个操作：
+
+    1、执行客户端发来的命令
+    2、执行后的写命令追加到AOF缓冲区
+    3、执行后的写命令追加到AOF重写缓冲区
+    
+    void aofRewriteBufferReset(void) {
+        if (server.aof_rewrite_buf_blocks)
+            listRelease(server.aof_rewrite_buf_blocks);
+    
+        server.aof_rewrite_buf_blocks = listCreate();
+        listSetFreeMethod(server.aof_rewrite_buf_blocks,zfree);
+    }        
