@@ -193,12 +193,7 @@ AOF重写，由于AOF持久化是通过保存被执行的写命令来记录数�
 
     1、执行客户端发来的命令
     2、执行后的写命令追加到AOF缓冲区
-    3、执行后的写命令追加到AOF重写缓冲区
+    3、执行后的写命令追加到AOF重写缓冲区  
     
-    void aofRewriteBufferReset(void) {
-        if (server.aof_rewrite_buf_blocks)
-            listRelease(server.aof_rewrite_buf_blocks);
-    
-        server.aof_rewrite_buf_blocks = listCreate();
-        listSetFreeMethod(server.aof_rewrite_buf_blocks,zfree);
-    }        
+    当子进程完成AOF重写工作之后，他会向父进程发送一个信号，父进程收到信号后，会执行AOF重写缓冲区数据，然后之后
+    执行文件替换，完成整个操作。
