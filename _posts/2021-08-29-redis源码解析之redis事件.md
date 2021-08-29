@@ -89,7 +89,7 @@ Redis的I/O多路复用程序的所有功能都是通过包装select、epoll、e
     
     
 
-时间事件，定时定点做某些事
+时间事件，定时定点做某些事，比如之前的AOF和RDB定时数据持久化
 
     源码也是在redis.c/initServer函数中，初始化了时间事件
     /* Create the serverCron() time event, that's our main way to process
