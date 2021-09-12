@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "redis源码解析之redis服务端.md"
+title:  "redis源码解析之redis服务端"
 date:   2021-09-10
 desc: "redis 服务端"
 keywords: "redis 服务端"
