@@ -216,5 +216,98 @@ Redis服务器的处理流程：<br/>
         {"latency",latencyCommand,-2,"arslt",0,NULL,0,0,0,0,0}
     };
     
-该模块内容较多，楼主需要慢慢更新。更多内容+Q 867120103<br/>    
+当所有的属性都解析完毕之后，开始调用函数指针方法，方法为:
+
+    redis.c中
+    /* Call() is the core of Redis execution of a command */
+    void call(redisClient *c, int flags); 
+    类似执行client->cmd->proc(client);
+    
+    方法执行完成之后，命令回复保存到客户端的输出缓冲区中，由于是set命令，为固定大小缓冲区，
+    //固定大小缓冲区
+    char buf[];
+    int bufpos;
+    
+    //可变大小缓冲区
+    list *reply; 
+    
+执行之后的后续操作，比如开启了慢日志查询，那么会判断是否需要记录日志，也是在call方法中执行的：
+
+    /* Log the command into the Slow log if needed, and populate the
+         * per-command statistics that we show in INFO commandstats. */
+    if (flags & REDIS_CALL_SLOWLOG && c->cmd->proc != execCommand) {
+        char *latency_event = (c->cmd->flags & REDIS_CMD_FAST) ?
+                              "fast-command" : "command";
+        latencyAddSampleIfNeeded(latency_event,duration/1000);
+        slowlogPushEntryIfNeeded(c->argv,c->argc,duration);
+    }   
+    
+    如果开启了AOF持久化功能，如果其他从服务器正在复制当前这个服务器，这个命令会被传播给其他从服务器
+    /* Propagate the command into the AOF and replication link */
+    if (flags & REDIS_CALL_PROPAGATE) {
+        int flags = REDIS_PROPAGATE_NONE;
+
+        if (c->flags & REDIS_FORCE_REPL) flags |= REDIS_PROPAGATE_REPL;
+        if (c->flags & REDIS_FORCE_AOF) flags |= REDIS_PROPAGATE_AOF;
+        if (dirty)
+            flags |= (REDIS_PROPAGATE_REPL | REDIS_PROPAGATE_AOF);
+        if (flags != REDIS_PROPAGATE_NONE)
+            propagate(c->cmd,c->db->id,c->argv,c->argc,flags);
+    }
+
+    /* Restore the old FORCE_AOF/REPL flags, since call can be executed
+     * recursively. */
+    c->flags &= ~(REDIS_FORCE_AOF|REDIS_FORCE_REPL);
+    c->flags |= client_old_flags & (REDIS_FORCE_AOF|REDIS_FORCE_REPL);
+
+    /* Handle the alsoPropagate() API to handle commands that want to propagate
+     * multiple separated commands. */
+    if (server.also_propagate.numops) {
+        int j;
+        redisOp *rop;
+
+        for (j = 0; j < server.also_propagate.numops; j++) {
+            rop = &server.also_propagate.ops[j];
+            propagate(rop->cmd, rop->dbid, rop->argv, rop->argc, rop->target);
+        }
+        redisOpArrayFree(&server.also_propagate);
+    } 
+    
+serverCron函数，这个在之前的AOF和RDB操作以及事件中已经说过，它是一种时间事件；更新服务器时间缓存，redis中不少功能
+需要获取系统的当前时间，
+
+    struct redisServer {
+    
+        // 保存了秒级精确的系统当前UNIX时间戳
+        time_t unixtime;
+        
+        // 保存了毫秒级精确的系统当前UNIX时间戳
+        long long mstime;
+    
+    }
+    
+    /* Update the time cache. */
+    updateCachedTime();
+    
+serverCron函数默认会以100毫秒一次的频率更新unixtime属性和mstime属性，所以他们的精确度不是很高。<br/>
+LRU时钟，服务器状态中的lrulock属性保存了服务器的LRU时钟，这个属性和上面介绍的unixtime属性、mstime属性一样，都是服务器缓存中的一种：
+
+    struct redisServer {
+    
+        // key的空转时间，默认10s更新一次时钟缓存
+        unsigned lrulock:22;
+    
+    }
+    
+    每个redis对象都有一个lru属性，这个lru属性保存了对象最后一次被命令访问的时间
+    struct redisObject {
+    
+        unsigned lru:22;
+    
+    }
+    
+当服务器要计算一个key的空转时间，程序会用服务器的lrulock属性记录的时间戳减去对象的lru属性记录的时间，得出的计算结果就是这个对象的空转时间<br/>
+再就是更新服务器每秒执行命令次数，这是一种数据采样<br/>
+管理客户端资源，serverCron函数每次会执行clientsCron函数，主要处理超时的客户端以及关闭超出输出缓冲区的客户端<br/>
+管理数据库资源、持久化操作等等 
      
