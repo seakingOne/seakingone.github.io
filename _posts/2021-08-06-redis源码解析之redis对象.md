@@ -4,7 +4,7 @@ title:  "redis源码解析之redis对象"
 date:   2021-08-06
 desc: "redis redisObject"
 keywords: "redis redisObject"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,内存]
 icon: icon-html
 ---

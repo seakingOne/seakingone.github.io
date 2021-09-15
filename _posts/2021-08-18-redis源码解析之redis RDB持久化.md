@@ -4,7 +4,7 @@ title:  "redis源码解析之redis RDB持久化"
 date:   2021-08-18
 desc: "redis 持久化 RDB"
 keywords: "redis 持久化 RDB"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,持久化]
 icon: icon-html
 ---

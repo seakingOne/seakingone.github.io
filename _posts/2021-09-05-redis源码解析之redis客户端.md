@@ -4,7 +4,7 @@ title:  "redis源码解析之redis客户端"
 date:   2021-09-05
 desc: "redis 客户端"
 keywords: "redis 客户端"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,客户端]
 icon: icon-html
 ---

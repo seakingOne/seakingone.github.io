@@ -4,7 +4,7 @@ title:  "redis源码解析之redis数据库"
 date:   2021-08-13
 desc: "redis redisDb"
 keywords: "redis redisDb"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,内存]
 icon: icon-html
 ---

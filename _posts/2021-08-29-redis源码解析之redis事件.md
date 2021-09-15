@@ -4,7 +4,7 @@ title:  "redis源码解析之redis事件"
 date:   2021-08-29
 desc: "redis 事件 多路复用"
 keywords: "redis 事件 多路复用"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,事件]
 icon: icon-html
 ---

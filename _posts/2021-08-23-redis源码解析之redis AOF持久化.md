@@ -4,7 +4,7 @@ title:  "redis源码解析之redis AOF持久化"
 date:   2021-08-23
 desc: "redis 持久化 AOF"
 keywords: "redis 持久化 AOF"
-categories: [Article]
+categories: [Database]
 tags: [C/C++,redis,持久化]
 icon: icon-html
 ---
