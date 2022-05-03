@@ -28,6 +28,36 @@ ffmpeg基本操作命令
     -sample_fmts 显示可用的采样格式
     -layouts 显示channel的名称（单声道，多声道）
     -colors 显示识别的颜色名称
+    
+ffmpeg常用参数
+
+    -f fmt(输入输出，一般后面为设备名称)
+    -i url(输入，输入文件的url地址)
+    -y(全局参数，覆盖输出文件而不询问)
+    -n(全局参数，不要覆盖输出文件，如果文件存在，立即退出)
+    -c(编解码，ffmpeg -i INPUT -map 0 -c:v libx264 -c:a copy OUTPUT)
+    -filter(过滤流)
+    视频参数：
+    -r[: stream_specifier] fps(设置帧率，hz值)  
+    -s[: stream_specifier] (设置分辨率)  
+    -aspect[: stream_specifier] (设置方面指定的视频显示宽高比。aspect 可以是浮点数字符
+                                 串，也可以是 num：den 形式的字符串，其中 num 和 den
+                                 是宽高比的分子和分母。例如“4：3”，“16：9”，“1.3333”和
+                                 “1.7777”是有效的参数值。如果与-vcodec 副本一起使用，
+                                 则会影响存储在容器级别的宽高比，但不会影响存储在编码
+                                 帧中的宽高比)
+    -vn(禁用视屏录制)
+    -vcodec(编解码器)
+    音频参数：
+    -ar(设置音频采样频率。对于输出流，它默认设置为相应
+        输入流的频率。对于输入流，此选项仅适用于音频捕
+        获设备和原始分路器，并映射到相应的分路器选件。)
+    -ac(设置音频的通道数)
+    -an(禁止录音)
+    -acodec(设置音频编解码器)
+    -sample_fmt(设置音频采样格式。使用-sample_fmts 获取支持的样
+                本格式列表。)
+                    
 
 举个例子：
 Get devices
