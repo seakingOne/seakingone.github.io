@@ -11,6 +11,24 @@ icon: icon-html
 
 The command here is based on Windows(the personal computer), and Mac operations are similar.
 
+ffmpeg基本操作命令
+-version 显示版本
+-demuxers 显示可用的demuxers（视音频分离器）
+-muxers 显示可用的muxers（多路复用器，视音频复用器（Muxer）即是将视频压缩数据（例如H. 264）和音频压缩数据（例如AAC）合并到一个封装格式数据）
+-devices 显示可用的设备
+-codecs 显示所有的编解码器
+-deoders 显示所有的解码器
+-encoders 显示所有的编码器
+-bsfs 显示比特流filter（？）
+-formats 显示可用的格式（比如mp3，mp4）
+-protocols 显示可用的协议
+-filter 显示可用的过滤器
+-pix_fmts 显示可用的像素格式
+-sample_fmts 显示可用的采样格式
+-layouts 显示channel的名称（单声道，多声道）
+-colors 显示识别的颜色名称
+
+举个例子：
 Get devices
 
     ffmpeg -devices
