@@ -141,6 +141,17 @@ Extract the original data format:
     -c:v： 对视频进行编码，使用rawvideo（原始视频）格式进行编码
     -pix_fmt yuv420p： 输出的YUV像素格式 
  
+其他：
+   
+    滤镜处理： 
+        都是针对解码后（原始）的数据处理 
+        像素裁剪：ffmpeg -i 1.mp4 -vf crop=in_w-200:in_h-200 -c:libx264 -c:a copy out.mp4
+    
+    
+    音视频裁剪(裁剪10s)：ffmpeg -i 1.mp4 -ss 00:00:00 -t 10 out.ts
+    多个视频合并(input.txt中文件格式为file '1.ts')：ffmpeg -f concat -i input.txt out.mp4
+    图片视频互转：ffmpeg -i 1.mp4 -r 1 -f image2 image-%3d.jpeg 
+               ffmpeg -i image-%3d.jpeg out.mp4
 
 
 [here you can see word doc(中文版)](https://dhboke.top/static/assets/img/blog/ffmpeg/ffmpeg命令大全.pdf)
