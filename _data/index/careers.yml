@@ -13,20 +13,6 @@
     detail: Specialist
     i18n: Specialist
   icon: fa-plus-square
-  present: true
-- name:
-    detail: Tencent Cloud
-    i18n: Tencent Cloud
-  desc:
-    detail: Specialist of Java development engineer
-    i18n: Saas, to B
-  date:
-    detail: March. 2020(Just for a month)
-    i18n: March. 2020(Just for a month)
-  job:
-    detail: Specialist
-    i18n: Specialist
-  icon: fa-plus-square
 - name:
     detail: Spring tour
     i18n: Spring tour
