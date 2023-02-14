@@ -4,7 +4,7 @@ title:  "Linux编程之makefile"
 date:   2022-12-30
 desc: "C/C++ makefile 编译"
 keywords: "C/C++ makefile 编译"
-categories: [C_or_c++]
+categories: [Linux]
 tags: [C/C++]
 icon: icon-html
 ---
