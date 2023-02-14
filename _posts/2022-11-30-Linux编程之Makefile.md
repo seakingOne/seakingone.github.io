@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "C语言基础知识点"
-date:   2023-02-14
-desc: "C 基础"
-keywords: "C 基础"
-categories: [C_or_c++]
+title:  "Linux编程之Makefile"
+date:   2022-11-30
+desc: "C/C++ makefile 编译"
+keywords: "C/C++ makefile 编译"
+categories: [Linux]
 tags: [C/C++]
 icon: icon-html
 ---
