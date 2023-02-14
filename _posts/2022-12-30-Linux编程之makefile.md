@@ -4,16 +4,15 @@ title:  "Linux编程之makefile"
 date:   2022-12-30
 desc: "C/C++ makefile 编译"
 keywords: "C/C++ makefile 编译"
-categories: [C_OR_C++]
+categories: [C_or_c++]
 tags: [C/C++]
 icon: icon-html
 ---
 
 ## GUN
 
-gcc（GNU Compiler Collection，GNU 编译器套件），是由 GNU 开发的编程语言编译器。gcc原本作为GNU操作系统的官方编译器，现已被大多数类Unix操作系统（如Linux、BSD、Mac OS X等）采纳为标准的编译器，gcc同样适用于微软的Windows。
-
-gcc最初用于编译C语言，随着项目的发展gcc已经成为了能够编译C、C++、Java、Ada、fortran、Object C、Object C++、Go语言的编译器大家族。
+>gcc（GNU Compiler Collection，GNU 编译器套件），是由 GNU 开发的编程语言编译器。gcc原本作为GNU操作系统的官方编译器，现已被大多数类Unix操作系统（如Linux、BSD、Mac OS X等）采纳为标准的编译器，gcc同样适用于微软的Windows。
+>gcc最初用于编译C语言，随着项目的发展gcc已经成为了能够编译C、C++、Java、Ada、fortran、Object C、Object C++、Go语言的编译器大家族。
 
 编译命令格式：
 
