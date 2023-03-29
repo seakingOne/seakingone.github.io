@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Linux socket编程"
-date:   2021-04-19
+date:   2023-03-29
 desc: "Linux socket"
 keywords: "linux socket 大小端"
 categories: [Linux]
@@ -16,6 +16,7 @@ icon: icon-html
 因此，网络数据流的地址应这样规定：先发出的数据是低地址，后发出的数据是高地址。但是TCP/IP协议规定，网络数据流应采用大端字节序，
 即低地址高字节;为使网络程序具有可移植性，使同样的C代码在大端和小端计算机上编译后都能正常运行，可以调用以下库函数做网络字节序和主机字节序的转换
 
+```sh
     #include <arpa/inet.h>
     /*主机字节顺序 --> 网络字节顺序*/
     uint32_t htonl(uint32_t hostlong);/* 端口*/
@@ -44,11 +45,12 @@ icon: icon-html
        *  @return 返回的即是 dst
       */
     const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
-    
+ ```   
  
 还要了解sockaddr数据结构, const struct sockaddr *指针, 指向要绑定给sockfd的协议地址。这个地址结构根据地址创建socket时的地址协议族的不同使用不同结构体
 原来的结构体即左边第一个, 这种使用不方便所以出现针对不同类型协议的结构体, 可以直接访问其对应的值, 主要是IP和port(端口)
 
+```sh
     ipv4对应的是：
     struct sockaddr_in {
         sa_family_t    sin_family; /* address family: AF_INET */
@@ -226,3 +228,4 @@ client:
         close(fd);
          return 0;
     }     
+```
