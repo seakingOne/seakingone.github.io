@@ -229,3 +229,7 @@ client:
          return 0;
     }     
 ```
+
+上面当然都是简单的一对一连接通信，如果需要多个客户端同时处理，需要怎么处理呢？<br/>
+<img src="{{ site.img_path }}/linux/socket/more_client.jpg" width="65%"> <br/>
+从上面可以看出，我们应该维护一个数组结构，用于存储所有接受的client，然后依次去处理，这是最快的处理方式，那么其实还有其他的处理方式，比如select、poll、epoll
