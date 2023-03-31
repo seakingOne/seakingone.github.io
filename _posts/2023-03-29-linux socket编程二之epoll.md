@@ -115,6 +115,106 @@ events为传出参数，通过他来判断是读还是写事件
 附上完整的epoll_server代码：
 ```sh
 
+#include <stdio.h>
+#include <sys/types.h>          /* See NOTES */
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <sys/epoll.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() {
+
+        //创建监听句柄
+        int lfd = socket(AF_INET, SOCK_STREAM, 0);
+
+        //绑定端口
+        struct sockaddr_in server;
+        server.sin_family = AF_INET;
+        server.sin_port = htons(8888);
+        char host[16];
+        inet_pton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr);
+
+        bind(lfd, (struct sockadd_in*) &server, sizeof(server));
+
+        //监听
+        listen(lfd, 128);
+
+        // create epoll fd
+        int epoll_fd =  epoll_create(128);
+
+        // lfd上树
+        struct epoll_event event;
+        event.data.fd = lfd;
+        event.events = EPOLLIN | EPOLLET; //读事件与水平触发
+        epoll_ctl(epoll_fd, EPOLL_CTL_ADD, lfd, &event);
+
+        // 等待epoll的event返回
+        struct epoll_event events[128];
+        while(1) {
+
+                // 返回有事件的数量
+                int count = epoll_wait(epoll_fd, &events, 128, -1);
+
+                if (count < 0) {
+                        perror("");
+                }
+
+                for(int i = 0; i < count; i++) {
+                        if(events[i].data.fd == lfd) {
+
+                                if(events[i].events & EPOLLIN) {
+                                        // 接收到新的client
+                                        struct sockaddr_in client;
+                                        socklen_t size = sizeof(client);
+                                        int cfd = accept(lfd, &client, &size);
+                                        if (cfd < 0) {
+                                                perror("");
+                                        }
+
+                                        char ip[32];
+                                        printf("new client, ip = %s, port = %d \n", inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof(ip)), ntohs(client.sin_port));
+
+                                        // 将客户端设置非非阻塞
+                                        int flag = fcntl(cfd, F_GETFL);
+                                        fcntl(cfd, F_SETFL, flag|O_NONBLOCK);
+
+                                        // cfd 上树
+                                        printf("cfd开始上树\n");
+                                        event.data.fd = cfd;
+                                        event.events = EPOLLIN | EPOLLET;
+                                        int ret = epoll_ctl(epoll_fd, EPOLL_CTL_ADD, cfd, &event);
+                                        if (ret < 0) {
+                                                perror("");
+                                        }
+                                }
+                        } else {
+                                if (events[i].events & EPOLLIN) {
+
+                                        // 读取客户端的数据
+                                        printf("cfd读事件 \n");
+                                        int cfd = events[i].data.fd;
+                                        char buf[128];
+                                        int read_data = read(cfd, buf, sizeof(buf));
+                                        if(read_data == 0) {
+                                                printf("client断开链接\n");
+                                                //下树
+                                                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
+                                        } else if (read_data < 0) {
+                                                perror("");
+                                                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
+                                        } else  {
+                                                printf("read data = %s \n", buf);
+                                                write(cfd, buf, read_data);
+                                        }
+
+                                }
+                        }
+                }
+
+        }
+
+}
 
 
 ```
