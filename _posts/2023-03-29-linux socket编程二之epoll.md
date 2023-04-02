@@ -218,3 +218,122 @@ int main() {
 
 
 ```
+
+## epoll反应堆
+
+>epoll反应堆模型其实就是Libevent库核心思想
+>基本设计思想：将文件描述符、事件、回调函数使用自定义结构体封装在一起，当某个文件描述符的事件被触发，会自动调用回调函数既可以实现对应的IO操作。最终目的实现不同的文件描述对应不同的事件处理函数
+
+```sh
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/epoll.h>
+
+struct my_epoll_event {
+
+        int epoll_fd;
+        int current_fd;
+        void (*call_back)(struct my_epoll_event *arg);
+        int events;
+
+}
+
+int read_data(struct my_epoll_event* mev);
+int write_data(struct my_epoll_event* mev);
+
+int write_data(struct my_epoll_event* mev) {
+
+        int cfd = mev->current_fd;
+        write(cfd, "OK", 2);
+
+        mev -> call_back = read_data;
+        event.data.ptr = mev;
+        event.events = EPOLLIN;
+        epoll_ctl(epoll_fd, EPOLL_CTL_MOD, &event);
+
+}
+
+int read_data(struct my_epoll_event* mev) {
+
+        int epoll_fd = mev->epoll_fd;
+        int cfd = mev->current_fd;
+        struct epoll_event event;
+        event.events = EPOLLIN;
+
+        char buf[128];
+        int data = read(cfd, &buf, sizeof(buf));
+        if(data == 0 || data < 0) {
+
+                // client exit
+                printf("client exit... \n");
+                if(mev != null) {
+                        free(mev);
+                }
+                epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
+        } else {
+                printf("read client data = %s \n", buf);
+                // add write
+                mev -> call_back = write_data;
+                event.data.ptr = mev;
+                event.events = EPOLLOUT;
+                epoll_ctl(epoll_fd, EPOLL_CTL_MOD, &event);
+        }
+
+}
+
+int accpet(struct my_epoll_event* mev) {
+
+        struct epoll_event event;
+        struct sockaddr_in client;
+        scokelen_t size = sizeof(client);
+        int lfd = mev->current_fd;
+        int epoll_fd = mev->epoll_fd;
+        int cfd = accept(lfd, (struct aockadd_in *)&client, &size);
+
+        // add cfd to epoll tree
+        mev -> current_fd = cfd;
+        mev -> call_back = read_data;
+        event.data.ptr = mev;
+        event.events = EPOLLIN;
+        epoll_ctl(epoll_fd, EPOLL_CTL_ADD, cfd, &event);
+
+}
+
+int main() {
+
+        // create listen
+        int lfd = socket(AF_INET, SOCK_STREAM, 0);
+
+        int optval = 1;
+        int ret = setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+
+        struct sockaddr_in server;
+        server.sin_family = AF_INET;
+        server.sin_port = htons(8888);
+        inet_pton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr);
+        bind(lfd, (struct sockadd_in *)&server, sizeof(server));
+
+        listen(lfd, 128);
+
+        // create epoll
+        int epoll_fd = epoll_create(1);
+        struct epoll_event event;
+        event.events = EPOLLIN;
+        struct my_epoll_event* mev = (struct my_epoll_event)malloc(sizeof(struct my_epoll_event));
+        mev->epoll_fd = epoll_fd;
+        mev->current_fd = lfd;
+        mev->call_back = accpet;
+        event.data.ptr = mev;
+
+        while(1) {
+                //epoll_wait();
+        }
+
+}
+
+```
