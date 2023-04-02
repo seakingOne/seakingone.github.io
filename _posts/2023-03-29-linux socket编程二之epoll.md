@@ -125,10 +125,10 @@ events为传出参数，通过他来判断是读还是写事件
 
 int main() {
 
-        //创建监听句柄
+        #创建监听句柄
         int lfd = socket(AF_INET, SOCK_STREAM, 0);
 
-        //绑定端口
+        #绑定端口
         struct sockaddr_in server;
         server.sin_family = AF_INET;
         server.sin_port = htons(8888);
@@ -137,23 +137,23 @@ int main() {
 
         bind(lfd, (struct sockadd_in*) &server, sizeof(server));
 
-        //监听
+        #监听
         listen(lfd, 128);
 
-        // create epoll fd
+        #create epoll fd
         int epoll_fd =  epoll_create(128);
 
-        // lfd上树
+        #lfd上树
         struct epoll_event event;
         event.data.fd = lfd;
-        event.events = EPOLLIN | EPOLLET; //读事件与水平触发
+        event.events = EPOLLIN | EPOLLET; #读事件与水平触发
         epoll_ctl(epoll_fd, EPOLL_CTL_ADD, lfd, &event);
 
-        // 等待epoll的event返回
+        #等待epoll的event返回
         struct epoll_event events[128];
         while(1) {
 
-                // 返回有事件的数量
+                #返回有事件的数量
                 int count = epoll_wait(epoll_fd, &events, 128, -1);
 
                 if (count < 0) {
@@ -164,7 +164,7 @@ int main() {
                         if(events[i].data.fd == lfd) {
 
                                 if(events[i].events & EPOLLIN) {
-                                        // 接收到新的client
+                                        #接收到新的client
                                         struct sockaddr_in client;
                                         socklen_t size = sizeof(client);
                                         int cfd = accept(lfd, &client, &size);
@@ -175,11 +175,11 @@ int main() {
                                         char ip[32];
                                         printf("new client, ip = %s, port = %d \n", inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof(ip)), ntohs(client.sin_port));
 
-                                        // 将客户端设置非非阻塞
+                                        #将客户端设置非非阻塞
                                         int flag = fcntl(cfd, F_GETFL);
                                         fcntl(cfd, F_SETFL, flag|O_NONBLOCK);
 
-                                        // cfd 上树
+                                        #cfd 上树
                                         printf("cfd开始上树\n");
                                         event.data.fd = cfd;
                                         event.events = EPOLLIN | EPOLLET;
@@ -191,14 +191,14 @@ int main() {
                         } else {
                                 if (events[i].events & EPOLLIN) {
 
-                                        // 读取客户端的数据
+                                        # 读取客户端的数据
                                         printf("cfd读事件 \n");
                                         int cfd = events[i].data.fd;
                                         char buf[128];
                                         int read_data = read(cfd, buf, sizeof(buf));
                                         if(read_data == 0) {
                                                 printf("client断开链接\n");
-                                                //下树
+                                                #下树
                                                 epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
                                         } else if (read_data < 0) {
                                                 perror("");
@@ -269,7 +269,7 @@ int read_data(struct my_epoll_event* mev) {
         int data = read(cfd, &buf, sizeof(buf));
         if(data == 0 || data < 0) {
 
-                // client exit
+                # client exit
                 printf("client exit... \n");
                 if(mev != null) {
                         free(mev);
@@ -277,7 +277,7 @@ int read_data(struct my_epoll_event* mev) {
                 epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
         } else {
                 printf("read client data = %s \n", buf);
-                // add write
+                # add write
                 mev -> call_back = write_data;
                 event.data.ptr = mev;
                 event.events = EPOLLOUT;
@@ -306,7 +306,7 @@ int accpet(struct my_epoll_event* mev) {
 
 int main() {
 
-        // create listen
+        # create listen
         int lfd = socket(AF_INET, SOCK_STREAM, 0);
 
         int optval = 1;
@@ -320,7 +320,7 @@ int main() {
 
         listen(lfd, 128);
 
-        // create epoll
+        # create epoll
         int epoll_fd = epoll_create(1);
         struct epoll_event event;
         event.events = EPOLLIN;
@@ -330,8 +330,12 @@ int main() {
         mev->call_back = accpet;
         event.data.ptr = mev;
 
+        struct epoll_event events[128];
         while(1) {
-                //epoll_wait();
+                int count = epoll_wait(epoll_fd, &events, 128, -1);
+                for(int i = 0; i < count; i++) {
+                        ((struct my_epoll_event)(events[i].data.ptr)) -> callback((struct my_epoll_event)(events[i].data.ptr));
+                }
         }
 
 }
