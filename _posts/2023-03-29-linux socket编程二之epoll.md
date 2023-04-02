@@ -271,9 +271,6 @@ int read_data(struct my_epoll_event* mev) {
 
                 # client exit
                 printf("client exit... \n");
-                if(mev != null) {
-                        free(mev);
-                }
                 epoll_ctl(epoll_fd, EPOLL_CTL_DEL, cfd, &event);
         } else {
                 printf("read client data = %s \n", buf);
@@ -337,6 +334,11 @@ int main() {
                         ((struct my_epoll_event)(events[i].data.ptr)) -> callback((struct my_epoll_event)(events[i].data.ptr));
                 }
         }
+
+        #free memory
+        if(mev != null) {
+                free(mev);      
+        } 
 
 }
 
