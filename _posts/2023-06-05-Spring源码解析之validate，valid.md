@@ -73,4 +73,4 @@ public static MethodValidationPostProcessor methodValidationPostProcessor(Enviro
 }
 ```
 
-当然，在spring的整合和，可以直接使用DataBinder和校验绑定，完成对于参数的处理。（比如springmvc实现参数绑定与Field校验）
+当然，在spring的整合，可以直接使用DataBinder和校验绑定，完成对于参数的处理。（比如springmvc实现参数绑定与Field校验）
