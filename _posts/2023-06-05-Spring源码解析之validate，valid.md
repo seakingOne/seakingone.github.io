@@ -51,9 +51,9 @@ public class PersonValidator implements Validator {
 验证错误会报告给Errors传递给验证器的对象。问题很明显，其实不太利用扩展，validate逻辑和bean本身的逻辑已经绑定在一起了。
 
 ## spring校验的救赎
->Spring Framework 提供对 Java Bean Validation API 的支持，@Valid用于标记入参
->LocalValidatorFactoryBean:符合jsr303标准处理，可以定义国际化文案 
->MethodValidationPostProcessor:整合到spring中，通过aop的方式，默认切入@Validate注解做aop，完整方法参数的校验
+>Spring Framework 提供对 Java Bean Validation API 的支持，`@Valid`用于标记入参；
+>`LocalValidatorFactoryBean`:符合jsr303标准处理，可以定义国际化文案；
+>`MethodValidationPostProcessor`:整合到spring中，通过aop的方式，默认切入`@Validate`注解做aop，完整方法参数的校验。
 
 ```sh
 @Bean
