@@ -154,6 +154,6 @@ Extract the original data format:
                ffmpeg -i image-%3d.jpeg out.mp4
 
 
-[here you can see word doc(中文版)](https://dhboke.top/static/assets/img/blog/ffmpeg/ffmpeg命令大全.pdf)
+[here you can see word doc(中文版)](https://seakingone.github.io/static/assets/img/blog/ffmpeg/ffmpeg命令大全.pdf)
 
 [here you can see FFmpeg in C use of video/audio](https://juejin.cn/post/6844903732891615246)
