@@ -6,8 +6,8 @@
         </div>
     </div>
     <div class="row features-block">
-        <div class="wow zoomIn col-lg-6 col-lg-offset-3">
-            <canvas id="{{ site.data.index.skills.id }}" height="500" width="500"></canvas>
+        <div class="wow zoomIn col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 skills-chart-wrap">
+            <canvas id="{{ site.data.index.skills.id }}"></canvas>
         </div>
         <div class="col-lg-1"></div>
         <script>
@@ -29,8 +29,9 @@
             type: 'radar',
             data: data,
             options: {
+                maintainAspectRatio: true,
+                responsive: true,
                 scale: {
-                    responsive: true,
                     ticks: {min: 0, max: 100},
                     lineArc: false,
                     pointLabels: {fontSize: 14},

@@ -17,8 +17,8 @@ permalink: /blog/
         <div class="wrapper wrapper-content animated fadeInRight">
 
             {% for item in site.data.blog %}
-            {% comment %} 跳过博客首页自身与捐赠页，仅列出文章分类（与导航 _data/blog.yml 一致）{% endcomment %}
-            {% unless item.href == '/blog/' or item.href == '/donate/' %}
+            {% comment %} 跳过博客首页自身，仅列出文章分类（与导航 _data/blog.yml 一致）{% endcomment %}
+            {% unless item.href == '/blog/' %}
             {% assign cat_key = item.name %}
             {% assign cat_posts = site.categories[cat_key] %}
             {% assign cat_count = cat_posts | size %}

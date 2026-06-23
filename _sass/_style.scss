@@ -1889,6 +1889,8 @@ ul.clear-list:first-child {
   p {
     font-size: 15px;
     line-height: 26px;
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 }
 
@@ -2507,18 +2509,20 @@ body {
   .header-back {
     height: 470px;
     width: 100%;
-    background-position: 50% 0;
-    background-repeat:  no-repeat;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .carousel {
     height: 470px;
+    overflow: hidden;
   }
   .carousel-caption {
     z-index: 10;
   }
   .carousel .item {
     height: 470px;
-    background-color: #777;
+    background-color: transparent;
   }
   .carousel-inner > .item > img {
     position: absolute;
@@ -2531,8 +2535,11 @@ body {
     .carousel-inner {
       .item {
         opacity: 0;
-        -webkit-transition-property: opacity;
-        transition-property: opacity;
+        left: 0 !important;
+        right: 0;
+        transform: none !important;
+        -webkit-transition: opacity 0.8s ease-in-out;
+        transition: opacity 0.8s ease-in-out;
       }
       .active {
         opacity: 1;
@@ -2560,7 +2567,7 @@ body {
     .container {
       position: relative;
     }
-    overflow: visible;
+    overflow: hidden;
   }
   .carousel-caption {
     position: absolute;
@@ -2813,5 +2820,105 @@ body {
         border: none;
       }
     }
+    .header-back,
+    .carousel,
+    .carousel .item {
+      height: 240px;
+    }
+    .about-desc p {
+      padding: 0 10px;
+    }
+    .skills-chart-wrap {
+      padding: 0 15px;
+    }
+    .vertical-timeline-content {
+      margin-left: 50px;
+    }
+    .article .ibox-content {
+      padding: 20px 15px;
+    }
+    .article h1 {
+      font-size: 28px;
+    }
+    .article-title {
+      margin: 20px 0 40px;
+    }
+  }
+}
+
+// 全局文字自动换行（中英文混排）
+body {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.landing-page,
+.article,
+.blog {
+  p, li, h1, h2, h3, h4, h5, h6, .vertical-timeline-content, .team-member p {
+    overflow-wrap: break-word;
+    word-break: normal;
+    line-height: 1.75;
+  }
+}
+
+// 中文段落两端对齐，减少手动换行需求
+html[lang="zh-CN"],
+:lang(zh) {
+  p, .vertical-timeline-content p, .about-desc p {
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+}
+
+.about-desc {
+  p {
+    max-width: 42em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// 技能雷达图自适应
+.skills-chart-wrap {
+  max-width: 500px;
+  margin: 0 auto;
+
+  canvas {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-default .navbar-brand {
+    max-width: calc(100% - 56px);
+    white-space: normal;
+    line-height: 1.3;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-page {
+    .header-back,
+    .carousel,
+    .carousel .item {
+      height: 200px;
+    }
+  }
+
+  #i18_about_me .vote-icon i {
+    font-size: 22px;
+  }
+
+  .landing-page h1 {
+    font-size: 24px;
   }
 }
