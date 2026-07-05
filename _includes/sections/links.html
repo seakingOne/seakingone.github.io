@@ -5,37 +5,33 @@
             <h1><span data-i18n="link.link">Link</span></h1>
         </div>
     </div>
-    <div class="row">
-    {% for link in site.data.index.links %}
-        {% assign loopindex = forloop.index | modulo: 3 %}
-        {% if forloop.last %}
-            {% if forloop.last == forloop.first %}
-        <div class="col-sm-4 col-sm-offset-4 wow zoomIn">
-                {% else %}
-        <div class="col-sm-4 wow {% if loopindex != 0 %} col-sm-offset-4 fadeInRight {% else %} zoomIn {% endif %}">
-            {% endif %}
-        {% else %}
-        <div class="col-sm-4 wow {% if loopindex == 1 %} fadeInLeft {% else if loopindex == 2 %} zoomIn {% else %} fadeInRight {% endif %}">
-        {% endif %}
-        <div class="team-member">
-            <h4><span class="navy">{{ link.last_name }}</span> {{ link.first_name }}</h4>
-            <p>{{ link.desc }}</p>
-            <ul class="list-inline social-icon">
-                <li><a href="{{ link.website }}" target="blank"><i class="fa fa-link"></i></a>
-                </li>
-                <li><a href="mailto:{{ link.email }}"><i class="fa fa-envelope-o"></i></a>
-                </li>
-            </ul>
+    <div class="links-grid">
+        {% for link in site.data.index.links %}
+        <div class="links-item wow fadeInUp">
+            <div class="team-member">
+                <h4>
+                    <span class="navy">{{ link.last_name }}</span>
+                    {% if link.first_name and link.first_name != '' %} {{ link.first_name }}{% endif %}
+                </h4>
+                {% if link.desc and link.desc != '' %}
+                <p>{{ link.desc }}</p>
+                {% endif %}
+                <ul class="list-inline social-icon">
+                    {% if link.website and link.website != '' %}
+                    <li><a href="{{ link.website }}" target="blank" rel="noopener noreferrer"><i class="fa fa-link"></i></a></li>
+                    {% endif %}
+                    {% if link.email and link.email != '' %}
+                    <li><a href="mailto:{{ link.email }}"><i class="fa fa-envelope-o"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-            <p id="jalpc_site_pv" class="site-footer">
-                <strong>&copy; 2017 - {{ 'now' | date: "%Y" }} {{ site.title }}</strong><br>
-                <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">湘ICP备17023148号-1</a>
-            </p>
-        </div>
+    <div class="site-footer-wrap">
+        <p id="jalpc_site_pv" class="site-footer">
+            <strong>&copy; 2017 - {{ 'now' | date: "%Y" }} {{ site.title }}</strong><br>
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">湘ICP备17023148号-1</a>
+        </p>
     </div>
 </div>

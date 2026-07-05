@@ -2669,7 +2669,9 @@ body {
     background-image: url(../assets/img/landing/word_map.png);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-size: contain;
     margin-top: 60px;
+    padding: 60px 0 50px;
   }
   section {
     &.timeline {
@@ -2881,10 +2883,24 @@ body {
 }
 
 // 页脚备案信息保持居中
+.site-footer-wrap {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid #e7eaec;
+  text-align: center;
+}
+
 .site-footer {
   text-align: center;
-  line-height: 1.8;
+  line-height: 2;
   margin-bottom: 0;
+  font-size: 13px;
+  color: #676a6c;
+
+  strong {
+    font-weight: 600;
+    color: #2f4050;
+  }
 
   a {
     color: #676a6c;
@@ -2892,6 +2908,103 @@ body {
 
     &:hover {
       color: #3385FF;
+    }
+  }
+}
+
+// 首页 Link 区域：弹性居中，适配任意数量链接
+.landing-page .links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+  max-width: 900px;
+  margin: 0 auto 10px;
+}
+
+.landing-page .links-item {
+  flex: 0 1 260px;
+  width: 100%;
+  max-width: 300px;
+
+  .team-member {
+    background: #fff;
+    border: 1px solid #e7eaec;
+    border-radius: 8px;
+    padding: 28px 20px 22px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #999;
+      font-size: 13px;
+    }
+  }
+}
+
+// 首页 Projects 区域：等宽网格卡片
+.landing-page .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.landing-page .project-item {
+  .project-card {
+    background: #fff;
+    border: 1px solid #e7eaec;
+    border-radius: 8px;
+    padding: 28px 20px 22px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h4 {
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #676a6c;
+      font-size: 13px;
+      line-height: 1.75;
+      text-align: center;
+      overflow-wrap: break-word;
+      word-break: normal;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .ghbtn {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .btn {
+        min-width: 65px;
+      }
     }
   }
 }
