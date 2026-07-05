@@ -7,6 +7,8 @@ $(document).ready(function() {
   };
 
   var translate = function() {
+    var lang = i18n.lng() || 'en';
+    document.documentElement.lang = lang.indexOf('zh') === 0 ? 'zh-CN' : 'en';
     $('.i18container').i18n();
     $('#i18_navbar').i18n();
     $('#i18_about_me').i18n();

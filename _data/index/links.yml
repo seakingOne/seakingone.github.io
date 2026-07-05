@@ -1,18 +1,6 @@
 # links section data
-- last_name: github
+- last_name: GitHub
   first_name:
-  desc: github
-  website: github.com/seakingOne
+  desc: 个人代码仓库
+  website: https://github.com/seakingOne
   email: dh_top1994@yeah.net
-
-- last_name: Donate
-  first_name: Jalpc
-  desc: Support Jalpc
-  website: http://www.jarrekk.com/donate/
-  email: me@jarrekk.com
-
-- last_name: LN
-  first_name: FN
-  desc: COO
-  website: https://github.com
-  email: coo@google.com

@@ -1889,6 +1889,8 @@ ul.clear-list:first-child {
   p {
     font-size: 15px;
     line-height: 26px;
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 }
 
@@ -2507,18 +2509,20 @@ body {
   .header-back {
     height: 470px;
     width: 100%;
-    background-position: 50% 0;
-    background-repeat:  no-repeat;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .carousel {
     height: 470px;
+    overflow: hidden;
   }
   .carousel-caption {
     z-index: 10;
   }
   .carousel .item {
     height: 470px;
-    background-color: #777;
+    background-color: transparent;
   }
   .carousel-inner > .item > img {
     position: absolute;
@@ -2531,8 +2535,11 @@ body {
     .carousel-inner {
       .item {
         opacity: 0;
-        -webkit-transition-property: opacity;
-        transition-property: opacity;
+        left: 0 !important;
+        right: 0;
+        transform: none !important;
+        -webkit-transition: opacity 0.8s ease-in-out;
+        transition: opacity 0.8s ease-in-out;
       }
       .active {
         opacity: 1;
@@ -2560,7 +2567,7 @@ body {
     .container {
       position: relative;
     }
-    overflow: visible;
+    overflow: hidden;
   }
   .carousel-caption {
     position: absolute;
@@ -2662,7 +2669,9 @@ body {
     background-image: url(../assets/img/landing/word_map.png);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-size: contain;
     margin-top: 60px;
+    padding: 60px 0 50px;
   }
   section {
     &.timeline {
@@ -2813,5 +2822,338 @@ body {
         border: none;
       }
     }
+    .header-back,
+    .carousel,
+    .carousel .item {
+      height: 240px;
+    }
+    .about-desc p {
+      padding: 0 10px;
+    }
+    .vertical-timeline-content {
+      margin-left: 50px;
+    }
+    .article .ibox-content {
+      padding: 20px 15px;
+    }
+    .article h1 {
+      font-size: 28px;
+    }
+    .article-title {
+      margin: 20px 0 40px;
+    }
+  }
+}
+
+// 全局文字自动换行（中英文混排）
+body {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+}
+
+.landing-page,
+.article,
+.blog {
+  p, li, h1, h2, h3, h4, h5, h6, .vertical-timeline-content, .team-member p {
+    overflow-wrap: break-word;
+    word-break: normal;
+    line-height: 1.75;
+  }
+}
+
+// 仅对长段落启用两端对齐，避免影响页脚备案等居中区域
+.about-desc p,
+.vertical-timeline-content p {
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+.about-desc {
+  p {
+    max-width: 42em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// 首页 About 区域技术图标居中
+.landing-page #i18_about_me .vote-icon {
+  text-align: center;
+}
+
+// 页脚备案信息保持居中
+.site-footer-wrap {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid #e7eaec;
+  text-align: center;
+}
+
+.site-footer {
+  text-align: center;
+  line-height: 2;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: #676a6c;
+
+  strong {
+    font-weight: 600;
+    color: #2f4050;
+  }
+
+  a {
+    color: #676a6c;
+    text-decoration: none;
+
+    &:hover {
+      color: #3385FF;
+    }
+  }
+}
+
+// 首页 Link 区域：弹性居中，适配任意数量链接
+.landing-page .links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+  max-width: 900px;
+  margin: 0 auto 10px;
+}
+
+.landing-page .links-item {
+  flex: 0 1 260px;
+  width: 100%;
+  max-width: 300px;
+
+  .team-member {
+    background: #fff;
+    border: 1px solid #e7eaec;
+    border-radius: 8px;
+    padding: 28px 20px 22px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #999;
+      font-size: 13px;
+    }
+  }
+}
+
+// 首页 Projects 区域：等宽网格卡片
+.landing-page .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.landing-page .project-item {
+  .project-card {
+    background: #fff;
+    border: 1px solid #e7eaec;
+    border-radius: 8px;
+    padding: 28px 20px 22px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h4 {
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #676a6c;
+      font-size: 13px;
+      line-height: 1.75;
+      text-align: center;
+      overflow-wrap: break-word;
+      word-break: normal;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .ghbtn {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .btn {
+        min-width: 65px;
+      }
+    }
+  }
+}
+
+// 技能雷达图移动端缩放
+#skills canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+// 文章内容区图片自适应，不影响头像等小图标
+.article .ibox-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .navbar-default .navbar-brand {
+    max-width: calc(100% - 56px);
+    white-space: normal;
+    line-height: 1.3;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  #i18_about_me .vote-icon i {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-page {
+    .header-back,
+    .carousel,
+    .carousel .item {
+      height: 200px;
+    }
+  }
+
+  .landing-page h1 {
+    font-size: 24px;
+  }
+}
+
+// PDF 内嵌阅读器
+.pdf-viewer {
+  margin: 24px 0;
+  border: 1px solid #e7eaec;
+  border-radius: 6px;
+  background: #fafafa;
+  overflow: hidden;
+
+  &.is-fallback .pdf-viewer-pages {
+    display: none;
+  }
+
+  &:not(.is-fallback) .pdf-viewer-fallback {
+    display: none;
+  }
+}
+
+.pdf-viewer-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e7eaec;
+}
+
+.pdf-viewer-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2f4050;
+}
+
+.pdf-viewer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdf-viewer-status {
+  font-size: 13px;
+  color: #999;
+}
+
+.pdf-viewer-pages {
+  padding: 16px;
+  background: #f0f0f0;
+}
+
+.pdf-page {
+  max-width: 820px;
+  margin: 0 auto 20px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+
+  &.is-loading::after {
+    content: '页面渲染中…';
+    display: block;
+    text-align: center;
+    padding: 40px 0;
+    color: #999;
+    font-size: 14px;
+  }
+
+  &.is-error::after {
+    content: '该页加载失败';
+    display: block;
+    text-align: center;
+    padding: 40px 0;
+    color: #c00;
+    font-size: 14px;
+  }
+}
+
+.pdf-page-label {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #999;
+  background: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.pdf-page-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pdf-viewer-fallback {
+  padding: 24px;
+  text-align: center;
+  color: #676a6c;
+}
+
+@media (max-width: 768px) {
+  .pdf-viewer-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pdf-viewer-pages {
+    padding: 10px;
   }
 }

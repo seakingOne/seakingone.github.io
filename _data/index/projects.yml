@@ -17,6 +17,8 @@
 
 - name: Spring Boot
   i18n: Spring Boot
+  gh_user: seakingOne
+  repo: springboot-learning-example
   url: https://github.com/seakingOne/springboot-learning-example
   img: /static/assets/img/landing/Spring Boot.png
   desc: This is another project.
