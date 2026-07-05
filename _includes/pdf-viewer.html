@@ -1,0 +1,31 @@
+{% comment %}
+  PDF 内嵌阅读器
+  用法（在 md 文章中直接写）：
+  {% include pdf-viewer.html src="/static/assets/img/blog/xxx.pdf" title="文档标题" %}
+
+  参数：
+  - src   : PDF 文件路径（以 /static 开头）
+  - title : 可选，显示标题
+{% endcomment %}
+
+{% assign pdf_path = include.src | prepend: site.baseurl %}
+{% assign pdf_id = include.title | default: include.src | slugify %}
+
+<div class="pdf-viewer" id="pdf-viewer-{{ pdf_id }}" data-src="{{ pdf_path }}" data-title="{{ include.title | default: 'PDF' }}">
+  <div class="pdf-viewer-header">
+    <h4 class="pdf-viewer-title">{{ include.title | default: 'PDF 文档' }}</h4>
+    <div class="pdf-viewer-actions">
+      <span class="pdf-viewer-status">正在加载…</span>
+      <a class="pdf-viewer-download btn btn-white btn-xs" href="{{ pdf_path }}" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-download"></i> 下载原文
+      </a>
+    </div>
+  </div>
+  <div class="pdf-viewer-pages"></div>
+  <div class="pdf-viewer-fallback">
+    <p>当前浏览器无法渲染 PDF，请 <a href="{{ pdf_path }}" target="_blank" rel="noopener noreferrer">点击此处</a> 查看原文。</p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="{{ '/static/js/pdf-viewer.js' | prepend: site.baseurl }}"></script>
