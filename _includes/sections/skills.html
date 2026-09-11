@@ -11,32 +11,45 @@
         </div>
         <div class="col-lg-1"></div>
         <script>
-        var ctx = document.getElementById("{{ site.data.index.skills.id }}");
-        var data = {
-            labels: "{{ site.data.index.skills.aspects }}".split(","),
-            datasets: [{
-                label: "{{ site.data.index.skills.label }}",
-                backgroundColor: "rgba(179,181,198,0.2)",
-                borderColor: "#3385FF",
-                pointBackgroundColor: "#3385FF",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#3385FF",
-                pointHoverBorderColor: "#3385FF",
-                data: [{{ site.data.index.skills.percentage }}]
-                }]
-        };
-        var myRadarChart = new Chart(ctx, {
-            type: 'radar',
-            data: data,
-            options: {
-                scale: {
-                    ticks: {min: 0, max: 100},
-                    lineArc: false,
-                    pointLabels: {fontSize: 14},
-                },
-                legend: {display: false},
+        // 等待 defer 脚本（Chart.js）加载完成后再初始化
+        function initSkillsChart() {
+            if (typeof Chart === 'undefined') {
+                return;
             }
-        });
+            var ctx = document.getElementById("{{ site.data.index.skills.id }}");
+            if (!ctx) {
+                return;
+            }
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: "{{ site.data.index.skills.aspects }}".split(","),
+                    datasets: [{
+                        label: "{{ site.data.index.skills.label }}",
+                        backgroundColor: "rgba(179,181,198,0.2)",
+                        borderColor: "#3385FF",
+                        pointBackgroundColor: "#3385FF",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#3385FF",
+                        pointHoverBorderColor: "#3385FF",
+                        data: [{{ site.data.index.skills.percentage }}]
+                    }]
+                },
+                options: {
+                    scale: {
+                        ticks: {min: 0, max: 100},
+                        lineArc: false,
+                        pointLabels: {fontSize: 14},
+                    },
+                    legend: {display: false},
+                }
+            });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSkillsChart);
+        } else {
+            initSkillsChart();
+        }
         </script>
     </div>
 </div>

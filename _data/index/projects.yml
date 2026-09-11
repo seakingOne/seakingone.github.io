@@ -6,14 +6,14 @@
   gh_user: seakingOne
   repo: springcloud-learning-example
   img: /static/assets/img/landing/Spring Cloud.png
-  desc: This project is my project. I use javescript to get repo's information all my repos have only one request.
+  desc: Spring Cloud 微服务示例，覆盖注册发现、配置中心、网关与常见组件实践。
 
 - name: Rpc
   i18n: Rpc
   gh_user: seakingOne
   repo: rpc
   img: /static/assets/img/landing/python.png
-  desc: This project is other's project. I use another request to get repo's information.
+  desc: 轻量 RPC 框架实践，关注服务调用、序列化与网络通信细节。
 
 - name: Spring Boot
   i18n: Spring Boot
@@ -21,4 +21,4 @@
   repo: springboot-learning-example
   url: https://github.com/seakingOne/springboot-learning-example
   img: /static/assets/img/landing/Spring Boot.png
-  desc: This is another project.
+  desc: Spring Boot 学习示例，整理常用起步依赖与工程化写法。

@@ -2,39 +2,37 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% if page.desc %}
-    <meta content="{{ page.desc }}" name="description">
-  {% endif %}
-  {% if page.keywords %}
-    <meta name="keywords" content="{{ page.keywords }}">
-  {% endif %}
+  {% assign page_desc = page.desc | default: site.description %}
+  {% assign page_keywords = page.keywords | default: site.keywords %}
+  <meta content="{{ page_desc }}" name="description">
+  <meta name="keywords" content="{{ page_keywords }}">
   <meta name="author" content="{{ site.author.name }}">
   <meta name="baseurl" content="{{ site.baseurl }}">
 
   <title>
     {% if page.title != "index" %}
-        {{ site.title }}|{{ page.title }}
+        {{ site.title }} | {{ page.title }}
     {% else %}
         {{ site.title }}
     {% endif %}
   </title>
+  <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}{{ site.author.avatar }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ page.title }}">
+  <meta name="twitter:description" content="{{ page_desc }}">
   <!-- favicon -->
   <link rel="shortcut icon" href="{{ "/static/assets/img/favicon.ico" | prepend: site.baseurl }}">
 
   <!-- Main CSS -->
-  <link href="{{ "/static/assets/app-20250820.min.css" | prepend: site.baseurl }}" rel="stylesheet">
+  <link href="{{ "/static/assets/app-20260911.min.css" | prepend: site.baseurl }}" rel="stylesheet">
   <link href="{{ "/static/css/custom.css" | prepend: site.baseurl }}" rel="stylesheet">
 
   <!-- Main Scripts -->
-  <script src="{{"/static/assets/app-20250820.min.js"| prepend: site.baseurl }}"></script>
-  <script src="{{"/static/assets/blog-20250820.min.js"| prepend: site.baseurl }}"></script>
-
-  <!-- Google AdSense -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-6196184620250820",
-      enable_page_level_ads: true
-    });
-  </script>
+  <script defer src="{{"/static/assets/app-20260911.min.js"| prepend: site.baseurl }}"></script>
+  <script defer src="{{"/static/assets/blog-20260911.min.js"| prepend: site.baseurl }}"></script>
 </head>

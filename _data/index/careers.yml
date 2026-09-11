@@ -4,7 +4,7 @@
     detail: Micro Focus
     i18n: Micro Focus
   desc:
-    detail: Specialist of Java development engineer
+    detail: Java 开发专家，负责企业级 SaaS 与 ToB 业务系统建设。
     i18n: Saas, to B
   date:
     detail: March. 2020
@@ -13,11 +13,12 @@
     detail: Specialist
     i18n: Specialist
   icon: fa-plus-square
+  present: true
 - name:
     detail: Spring tour
     i18n: Spring tour
   desc:
-    detail: I worked as an Java at Spring tour, order、product、component...
+    detail: Java 搜索方向开发，参与订单、商品、组件等核心业务。
     i18n: Internet, tour
   date:
     detail: June. 2018
@@ -26,12 +27,11 @@
     detail: Java Search
     i18n: Java Search
   icon: fa-plus-square
-  present: true
 - name:
     detail: AsiaInfo
     i18n: AsiaInfo
   desc:
-    detail: I worked as an Java at AsiaInfo, CRM、4G ...
+    detail: Java 开发，参与 CRM、4G 相关业务系统。
     i18n: Internet
   date:
     detail: July. 2016
@@ -41,16 +41,15 @@
     i18n: Java
   icon: fa-plus-square
 - name:
-    detail: NetEasy
+    detail: NetEase
     i18n: NetEasy
   desc:
-    detail: I worked as an intern at netease, serving tea to the boss ...
+    detail: 网易实习，接触互联网业务与工程实践。
     i18n: Internet, games
   date:
     detail: November. 2015
     i18n: November. 2015
   job:
-    detail: intern
+    detail: Intern
     i18n: intern
   icon: fa-plus-square
-  present: true

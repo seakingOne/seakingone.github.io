@@ -4,13 +4,20 @@ $(document).ready(function() {
         offset: 80
     });
 
-    // Page scrolling feature
-    $('a.page-scroll').bind('click', function(event) {
-        var link = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $(link.attr('href')).offset().top - 50
-        }, 500);
+    // 仅对站内锚点链接启用平滑滚动，避免拦截 /blog/ 等真实跳转
+    $('a.page-scroll').on('click', function(event) {
+        var href = $(this).attr('href');
+        if (!href || href.charAt(0) !== '#') {
+            return;
+        }
+        var $target = $(href);
+        if (!$target.length) {
+            return;
+        }
         event.preventDefault();
+        $('html, body').stop().animate({
+            scrollTop: $target.offset().top - 50
+        }, 500);
         $("#navbar").collapse('hide');
     });
 });

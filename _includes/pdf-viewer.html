@@ -1,11 +1,6 @@
 {% comment %}
   PDF 内嵌阅读器
-  用法（在 md 文章中直接写）：
-  {% include pdf-viewer.html src="/static/assets/img/blog/xxx.pdf" title="文档标题" %}
-
-  参数：
-  - src   : PDF 文件路径（以 /static 开头）
-  - title : 可选，显示标题
+  用法：{% include pdf-viewer.html src="/static/assets/img/xxx.pdf" title="文档标题" %}
 {% endcomment %}
 
 {% assign pdf_path = include.src | prepend: site.baseurl %}
@@ -27,5 +22,21 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="{{ '/static/js/pdf-viewer.js' | prepend: site.baseurl }}"></script>
+<script>
+(function () {
+  if (window.__pdfViewerAssetsLoading) {
+    return;
+  }
+  window.__pdfViewerAssetsLoading = true;
+  var base = {{ '/static/js/pdf-viewer.js' | prepend: site.baseurl | jsonify }};
+  var pdfjs = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  function load(src, next) {
+    var s = document.createElement('script');
+    s.src = src;
+    s.onload = next;
+    s.onerror = next;
+    document.body.appendChild(s);
+  }
+  load(pdfjs, function () { load(base); });
+})();
+</script>
