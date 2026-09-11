@@ -3049,6 +3049,40 @@ body {
   }
 }
 
+// 分类页分页
+.blog-pagination {
+  display: inline-block;
+  margin: 20px auto 40px;
+  text-align: center;
+
+  .pagination {
+    margin: 0;
+
+    > li > a {
+      color: #3385FF;
+    }
+
+    > .active > a,
+    > .active > a:hover,
+    > .active > a:focus {
+      background-color: #3385FF;
+      border-color: #3385FF;
+      color: #fff;
+    }
+
+    > .disabled > a,
+    > .disabled > a:hover,
+    > .disabled > a:focus {
+      color: #999;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.blog-post-item {
+  clear: both;
+}
+
 // PDF 内嵌阅读器
 .pdf-viewer {
   margin: 24px 0;
