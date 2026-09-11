@@ -42,10 +42,14 @@
   }
 
   function initViewer(container) {
+    if (container.dataset.pdfReady === '1') {
+      return;
+    }
     if (typeof pdfjsLib === 'undefined') {
       showFallback(container);
       return;
     }
+    container.dataset.pdfReady = '1';
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_CDN + 'pdf.worker.min.js';
 
@@ -131,9 +135,15 @@
     document.querySelectorAll('.pdf-viewer').forEach(initViewer);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
+  // 动态插入脚本时文档可能已 interactive，稍后再扫一次以防漏掉后续 PDF 节点
+  function bootSoon() {
     boot();
+    setTimeout(boot, 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootSoon);
+  } else {
+    bootSoon();
   }
 })();

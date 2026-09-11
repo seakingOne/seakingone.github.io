@@ -2,8 +2,8 @@
 
 # Website settings
 title: dh-Personal Technology Blog
-description: Yunong Huang 的个人技术博客，分享 Java、中间件、Linux、中医与传统文化学习笔记。
-keywords: SeakingOne,Yunong Huang,Java,Spring,Redis,Nginx,Linux,中医,周易,blog,Jekyll
+description: Yunong Huang's personal tech blog — Java, middleware, Linux, and notes on traditional Chinese culture.
+keywords: SeakingOne,Yunong Huang,Java,Spring,Redis,Nginx,Linux,blog,Jekyll
 #baseurl:  / # if you have suburl as homepage like '/homepage', please change it to '/homepage' and your repo's name should be 'homepage'
 url: https://dhtop.bbroot.com
 # url: http://127.0.0.1:4000
@@ -28,7 +28,7 @@ author:  # change following line to your infomation.
   skill_icon2:
     - name: fa-database
     - name: fa-cloud
-  desc: 你好，我是 Yunong。后端开发工程师，长期关注 Java 技术栈、中间件与系统底层。业余时间喜欢研究中医与中国传统文化，也热爱旅行和烹饪。欢迎交流。
+  desc: Hi everyone, I'm Yunong. I graduated from the Hunan Institute of Engineering. I enjoy researching new technology, cooking, and traveling. Glad to meet you here.
 
 # comment
 disqus:  # if you wanna comment feature, go to https://disqus.com/ to get your configuration; if not, comment following two lines.

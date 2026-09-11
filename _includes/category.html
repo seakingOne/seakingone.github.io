@@ -1,18 +1,4 @@
-<!-- jPages -->
-<script type="text/javascript">
-$(function(){
-  /* initiate the plugin */
-  $("div.pag-holder").jPages({
-      containerID  : "pag-itemContainer",
-      perPage      : 5,  /* num of items per page */
-      startPage    : 1,
-      startRange   : 1,
-      midRange     : 3,
-      endRange     : 1
-  });
-});
-</script>
-
+<!-- jPages：放在列表渲染之后初始化，避免脚本加载时序问题 -->
 <div class="row">
     <div class="col-lg-12 text-center">
         <div class="navy-line"></div>
@@ -68,3 +54,15 @@ $(function(){
         {% include pagination.html %}
     </div>
 </div>
+<script type="text/javascript">
+$(function(){
+  $("div.pag-holder").jPages({
+      containerID  : "pag-itemContainer",
+      perPage      : 5,
+      startPage    : 1,
+      startRange   : 1,
+      midRange     : 3,
+      endRange     : 1
+  });
+});
+</script>
